@@ -1,0 +1,26 @@
+# Render blueprint: New + -> Blueprint -> select this repo.
+services:
+  - type: web
+    name: taskflow
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --workers 2 --threads 4 --timeout 60
+    healthCheckPath: /health
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      # Optional: enable model-written AI agents (set the value in the Render dashboard)
+      # - key: ANTHROPIC_API_KEY
+      #   sync: false
+
+    # --- Persistent data (requires a paid instance type) -------------------
+    # The free plan's filesystem is ephemeral: the SQLite file is lost on redeploy/restart.
+    # To keep data, change `plan:` to `starter`, uncomment the disk below and add the DB_PATH env var.
+    # disk:
+    #   name: taskflow-data
+    #   mountPath: /var/data
+    #   sizeGB: 1
+    # (and under envVars:)
+    #   - key: DB_PATH
+    #     value: /var/data/taskflow.db
