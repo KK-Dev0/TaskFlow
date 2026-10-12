@@ -28,7 +28,7 @@
 
 <img src="docs/screenshots/dashboard.png" alt="TaskFlow dashboard" width="92%">
 
-<!-- 🔗 Live demo: add your Render URL here after deploying, e.g. [Open the app](https://your-app.onrender.com) -->
+🔗 **Live demo:** [Open TaskFlow](https://taskflow-iv7j.onrender.com)
 
 </div>
 
