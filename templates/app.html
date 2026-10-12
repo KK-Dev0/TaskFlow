@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <title>TaskFlow</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%238b7cf6'/%3E%3Cpath d='M18 33l9 9 19-21' fill='none' stroke='white' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+  <div class="shell">
+    <aside class="sidebar glass" id="sidebar" aria-label="Main navigation">
+      <div class="brand"><span class="logo">✓</span><span>TaskFlow</span></div>
+      <nav id="nav">
+        <button data-view="dashboard" class="nav-item">🏠 <span>Dashboard</span></button>
+        <button data-view="tasks" class="nav-item">✅ <span>Tasks</span></button>
+        <button data-view="board" class="nav-item">🗂️ <span>Board</span></button>
+        <button data-view="calendar" class="nav-item">📅 <span>Calendar</span></button>
+        <button data-view="focus" class="nav-item">⏱️ <span>Focus</span></button>
+        <button data-view="planner" class="nav-item">🧭 <span>Planner</span></button>
+        <button data-view="agents" class="nav-item">🤖 <span>AI Agents <b id="proposal-badge" class="badge" hidden>0</b></span></button>
+        <button data-view="analytics" class="nav-item">📊 <span>Analytics</span></button>
+        <button data-view="settings" class="nav-item">⚙️ <span>Settings</span></button>
+      </nav>
+      <div class="side-foot">
+        <div id="user-name" class="user-name"></div>
+        <button id="theme-btn" class="btn ghost small" type="button" aria-label="Toggle theme">🌓 Theme</button>
+        <form method="post" action="/logout">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <button class="btn ghost small" type="submit">Sign out</button>
+        </form>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="menu-btn" class="btn ghost icon-only" type="button" aria-label="Open menu">☰</button>
+        <form id="quick-form" class="quick glass" autocomplete="off">
+          <input id="quick-input" type="text" maxlength="500"
+                 placeholder='Quick add: "finish report tomorrow 5pm #college urgent for 2h"  (press /)'
+                 aria-label="Quick add a task in plain English">
+          <button class="btn primary" type="submit">Add</button>
+        </form>
+        <button id="timer-pill" class="timer-pill glass" type="button" hidden aria-label="Open focus timer"></button>
+      </header>
+      <div id="view" class="view" tabindex="-1"></div>
+    </main>
+  </div>
+
+  <dialog id="task-dialog" class="dialog glass"></dialog>
+  <dialog id="event-dialog" class="dialog glass"></dialog>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script src="{{ url_for('static', filename='timer.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body>
+</html>
